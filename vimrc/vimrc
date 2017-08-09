@@ -1,0 +1,129 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set hlsearch
+
+set textwidth=70
+set wrap
+" complete word display when line break
+set linebreak 
+
+" menu language settings
+let $LANG='en'
+set langmenu=en
+
+" config encoding format
+set fileencodings=utf-8,gb2312,gb18030,gbk,utf-16,utf-32,ucs-bom,cp936,latin1
+"set encoding=utf8
+
+" Other config
+syntax on
+set ruler
+colorscheme solarized
+set number
+
+" make 2 space character replace tab
+set ts=2
+set expandtab
+%retab!
+set shiftwidth=2
+
+
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+"" The following are examples of different formats supported.
+"" Keep Plugin commands between vundle#begin/end.
+"" plugin on GitHub repo
+"Plugin 'tpope/vim-fugitive'
+"" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+"" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+"" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+"" The sparkup vim script is in a subdirectory of this repo called vim.
+"" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"" Avoid a name conflict with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+
+Bundle 'Valloric/YouCompleteMe'
+
+
+Bundle 'vim-airline'
+let g:airline_theme="solarized"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+Bundle 'taglist.vim'
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Process_File_Always=1
+
+Bundle 'scrooloose/nerdtree'
+
+Bundle 'a.vim'
+
+Bundle 'winmanager'
+" 设置winmanager
+" 设置界面分割
+let g:winManagerWindowLayout = "NERDTree|TagList"
+"设置winmanager的宽度，默认为25
+let g:winManagerWidth = 30
+"在进入vim时自动打开winmanager
+let g:winManagerAutoStart = 1
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" cscope shortcuts config
+if has("cscope")
+	set csprg=/usr/bin/cscope     
+	set csto=0
+	set cst
+  " Make cscope outputs to quickfix window
+	set cscopequickfix=s-,c-,d-,i-,t-,e-,g-,a-,f-
+"	set cspc=3
+	set nocsverb
+	" add any database in current directory
+	if filereadable("cscope.out")
+	    cs add cscope.out
+	" else add database pointed to by environment
+	elseif $CSCOPE_DB != ""
+	    cs add $CSCOPE_DB
+	endif
+	set csverb
+endif
+
+
+" Go to the definetion of word
+nmap <A-Down> :cs find g <C-R>=expand("<cword>")<CR><CR>
+
+" Go to the place where shown
+nmap <A-Up> :cs find t <C-R>=expand("<cword>")<CR><CR>
+
+" a.vim config
+nmap <A-Right> :A<CR><CR>
+
+
+"set laststatus=2	"show the status line
+"set statusline=%-10.3n	"buffer number
